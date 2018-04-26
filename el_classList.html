@@ -1,0 +1,78 @@
+
+
+document.getElementById("myDIV").classList.add("mystyle");
+
+<style>
+    .foo { color: red; }
+    .bar { text-decoration: underline; }
+    .foo-bar { font-weight: bold; }
+</style>
+
+<div id="myDIV1" class="foo">fooTest</div>
+<div id="myDIV2" class="bar">fooTest</div>
+<div id="myDIV3" class="foo-bar">fooTest</div>
+<div id="myDIV4" class="">fooTest</div>
+
+<script>
+
+// div is an object reference to a <div> element with class="foo bar"
+    // var el = document.getElementById("myDIV");
+
+    myDIV1.classList.add('foo');
+    myDIV1.classList.add('bar');
+
+    myDIV2.classList.remove('bar');
+
+    myDIV3.classList.remove('bar');
+
+    myDIV4.classList.toggle('foo');
+
+
+
+
+</script>
+
+<script>
+    var classList2 = {
+        toggle: function(el, className) {
+            if ( el.className.indexOf(className) > -1 ) {
+                return true;
+            }
+        },
+        add: function(el, className) {
+            el.className = el.className + " " + className;
+        }
+    };
+</script>
+
+<script>
+    classList2.add(myDIV, 'foo');
+
+
+</script>
+
+
+<script>
+    var jq2 = {
+        addClass: function(el, className) {
+            el.className = el.className + " " + className;
+        }
+    };
+
+
+    var foo2 = {
+        addClass: function(el, className) {
+
+        }
+    };
+
+</script>
+
+
+<script>
+
+    jq2.addClass(myDIV, 'foo');
+
+    $('#myDIV1').addClass('foo');
+
+</script>

@@ -1,0 +1,99 @@
+
+# 세이브더칠드런
+
+# https://www.sc.or.kr/
+
+# 디렉토리 구조
+    - HTML 은 존재하지 않음
+    - JSP 파일 변경 유지보수
+    - CSS
+
+# PC
+    ## css
+    /webPub/0_sck2014/css/
+    /webPub/0_sck2014/css/default.css
+    /webPub/0_sck2014/css/new_main.css
+
+    <!-- 공통 css -->
+    /webPub/0_sck2014/css/autocomplete.css
+    /webPub/0_sck2014/css/defualt.css
+    /webPub/0_sck2014/css/main.css
+    /webPub/0_sck2014/css/index.css
+    /webPub/0_sck2014/css/layout.css
+    /webPub/0_sck2014/css/new_layout.css
+    /webPub/0_sck2014/css/popup.css
+    <!-- //공통 css -->
+
+    /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+    /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+    ## page CSS
+
+    ### 기관안내
+    /webPub/0_sck2014/css/guide.css
+    /webPub/0_sck2014/css/DropDown.css
+    /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+    /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+     ### 사업소개
+     /webPub/0_sck2014/css/business.css
+     /webPub/0_sck2014/css/DropDown02.css
+     /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+     /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+     ### 후원하기
+     /webPub/0_sck2014/css/board.css
+     /webPub/0_sck2014/css/foreign.css
+     /webPub/0_sck2014/css/mysupport.css
+
+     ### 후원하기 - 캠페인 후원
+     /webPub/0_sck2014/css/guide.css
+     /webPub/0_sck2014/css/DropDown.css
+     /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+     /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+     ### 참여하기
+     /styles/defualt.css
+     /styles/design.css
+     /styles/board.css
+     /webPub/0_sck2014/css/page_pc.css
+     /webPub/0_sck2014/css/member.css
+     /webPub/0_sck2014/css/campain.css
+     /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+     /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+     ### 참여하기 - 캠페인참여
+     /webPub/0_sck2014/css/guide.css
+     /webPub/0_sck2014/css/DropDown.css
+     /webPub/0_sck2014/css/FormSkin/CheckRadio/minimal/minimal.css
+     /webPub/0_sck2014/css/FormSkin/Selectbox/selectbox.css
+
+     ## image
+
+# mobile -  page
+
+    ## css
+     /webPub/0_sck2014_mobile/css/default.css
+     /webPub/0_sck2014_mobile/css/sck.css
+     /webPub/0_sck2014_mobile/css/sub.css
+
+     /webPub/0_sck2014_mobile/css/idangerous.swiper.css
+
+
+     /webPub/0_sck2014_mobile/css/support.css
+     /webPub/0_sck2014/css/page.css
+     /webPub/0_sck2014_mobile/css/slider.css
+     /webPub/0_sck2014_mobile/css/slider.css
+     /webPub/0_sck2014_mobile/css/FormSkin/CheckRadio/minimal/minimal.css
+
+     ## image
+     /webPub/0_sck2014_mobile/img/common/Top_logo.png
+
+
+
+
+
+# 마크업 가이드
+# 접근성 가이드
+
+

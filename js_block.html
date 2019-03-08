@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> js - firstClassFunction </title>
+</head>
+<body>
+
+<p>
+# First-class Function  <br>
+프로그래밍 언어는 해당언어의 함수가 다른 변수처럼 취급될 때 First-class 함수
+</p>
+<p>
+# console 창에서 확인. 
+</p>
+
+
+<script>
+//Example : Assign a function to a variable
+//변수에 함수 할당  
+const foo = function(){
+
+    console.log("foobar");
+    document.write("foobar");
+}
+
+//invoke it using the variable 
+
+foo();
+
+/*
+Anonymous Function in a Variable, then we used that variable to invoke the function by adding parentheses () at the end.
+
+익명함수를 변수에 저장하여, 그 변수에 괄호를() 추가하여 함수 호출 
+
+*/
+
+
+//Example | Pass a function as an ArgumentSection
+// 함수를 인자(argument)로 전달. 
+function sayHello(){
+    return "Hello...";
+}
+
+function greeting(hellowMessage, name){
+
+    console.log(sayHello() + name);
+
+}
+
+//pass 'sayHello' as a argument to 'greeting' function
+
+greeting(sayHello, "javascript!");
+
+
+//sayHello 는 Callback function
+/*
+The function that we pass as an argument to another function, called a Callback function. 
+say Hello is a Callback function. 
+
+콜백함수라고 하는 다름 함수에 인수로 전달 하는 함수. 
+
+*/
+
+
+//Example | Return a function | 함수 반환 
+function sayHello2() {
+   return function() {
+      console.log("Hello!");
+   }
+}
+/*
+a function that returns a function called Higher-Order Function. 
+Higher-Order Function이라는 함수를 반환하는 함수.
+
+*/
+
+
+//1. 변수사용 
+const sayHello3 = function() {
+   return function() {
+      console.log("Hello3!");
+      document.write("hello3!");
+   }
+}
+const myFunc = sayHello3();
+myFunc();
+
+//we need to invoke sayHello function and its returned Anonymous Function. T
+
+
+//2. 이중괄호 사용 
+
+function sayHello4() {
+   return function() {
+      console.log("Hello4!");
+      document.write("hello4!");
+   }
+}
+sayHello4()();
+// 이중괄호 ()() 사용하여 반환된 함수도 호출 
+// double parentheses  ()()
+
+</script>
+</body>
+</html>

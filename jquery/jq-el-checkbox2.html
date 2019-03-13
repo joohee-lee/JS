@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>chekbox-jquery</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+
+/*
+var uiCheck = {
+
+	allChecked : function(){
+		$('input[name=box]:checkbox').each(function(){
+			$(this).attr('checked', true);
+		});	
+	},
+	unChecked : function(){
+		$('input[name=box]:checkbox').each(function(){
+			$(this).attr('checked', false);
+		});		
+	},
+	getCheckedAll : function(){
+		$('input[name=box]:checkbox').each(function(){
+			var test = $(this).val();
+		})
+
+	}
+};
+*/
+
+window.uiCheck = (function(){
+	
+	var el, btn1, btn2, btn3 
+	function init(){
+		el = $('input[name=box]:checkbox');
+		btn1 = $('#checkAll');
+		btn2 = $('#uncheckAll');
+		btn3 = $('#getCheckedAll');
+
+		bindEvents();
+		/*
+		btn1.on('click', function(){ allChecked(); } );
+		btn2.on('click', function(){ unChecked(); });
+		btn3.on('click', function(){ getCheckedAll(); })
+		*/
+	}
+
+	function allChecked(){
+		el.each(function(){
+			$(this).attr('checked', true);
+		});
+	}
+
+	function unChecked(){
+		el.each(function(){
+			$(this).attr('checked', false);
+		});	
+	}
+
+	function getCheckedAll(){
+		el.each(function(){
+			var test = $(this).val();
+		});
+	}
+	
+	function bindEvents(){
+
+		btn1.on('click', allChecked );
+		btn2.on('click', unChecked );
+		btn3.on('click', getCheckedAll);
+	}
+	
+	return{
+		init: init
+	}
+
+})();	
+
+$(document).ready(function() {
+
+	//함수 호출
+	
+	//checkbox		
+	uiCheck.init();
+});
+
+
+</script>
+
+</head>
+
+<body>
+
+	<div id="checkboxArea">
+		<li><input type="checkbox" name="box" value="A" /><label>1번째 checkbox</label></li>
+		<li><input type="checkbox" name="box" value="B" /><label>2번째 checkbox</label></li>
+		<li><input type="checkbox" name="box" value="C" /><label>3번째 checkbox</label></li>
+		<li><input type="checkbox" name="box" value="D" /><label>4번째 checkbox</label></li>
+	</div>
+
+
+
+	<br/><br/>
+
+	<div id="buttonGroups">
+		<input type="button" id="checkAll" value="check all" />
+		<input type="button" id="uncheckAll" value="uncheck all" />
+		<input type="button" id="getCheckedAll" value="get checked all" />
+		<input type="button" id="updateChecked" value="updateChecked" />
+	</div>
+
+	<input type="hidden" id="splitCode" name="splitCode" value="A,C,D" />
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>each demo</title>
+  <style>
+  div {
+    text-align: center;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 300px;
+  }
+
+  .blue{ color:blue; }
+  .red{ color:red; }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body class='blue'>
+ 
+
+<div>Click here</div>
+<div>to iterate through</div>
+<div>these divs.</div>
+
+
+<script>
+
+$( document.body ).on('click', function() {
+  
+  //changeColor
+  changeColor(this);
+
+});
+
+function changeColor(el){
+
+    var elBody = $(el)
+    var elBodyClass = elBody.attr('class');
+
+    //console.log( elBodyClass);
+
+    if ( elBodyClass === 'blue' ){
+
+        elBody.removeClass('blue');
+        elBody.addClass('red');
+
+    }else{
+
+        elBody.removeClass('red');
+        elBody.addClass('blue');
+    }
+
+}
+
+</script>
+ 
+</body>
+</html>

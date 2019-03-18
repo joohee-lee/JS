@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>구구단</title>
+	<style>
+		*{ margin: 0; padding: 0; }
+		body{ 
+			margin: 10px;
+			font-family: '맑은 고딕', malgun-gothic, sans-serif;
+			font-size: 16px;
+			line-height: 1.2;
+		}
+
+	</style>
+	<script src="libs/jquery-1.11.0.min.js"></script>
+	<script>
+
+		//이벤트 등록 
+		$(document).ready(function(){ 
+
+			//인스턴스 생성 후 메서드 호출 
+			var myGGU = new Gugudan();
+
+			$('#3dan').on('click', function(){
+
+				myGGU.printdan(3);
+			});
+
+			$('#5dan').on('click', function(){
+
+				myGGU.printdan(5);
+			});
+
+			$('#6dan').on('click', function(){
+
+				myGGU.printdan(6);
+			});
+			
+		});
+
+
+		//초기화 프로퍼티 선언 
+		function Gugudan(){
+
+			this.$output = $('.div-output');
+		}
+		
+
+		//3단 메서드 만들기 
+		Gugudan.prototype.printdan = function(dan){
+
+			var dan = parseInt(dan);
+			var result = '';
+
+			for(i=1; i <= 9; i++){
+
+				result += dan + "*" + i + "=" + (dan*i) +"<br>"
+			}
+
+			this.$output.html(result);
+		
+		}
+
+
+
+	</script>
+	
+</head>
+<body>
+	
+	<div class="div-btns">
+		<button type="button" id="3dan">3단출력</button>
+		<button type="button" id="5dan">5단출력</button>
+		<button type="button" id="6dan">6단출력</button>
+	</div>
+
+	<div class="div-output">
+		선택된 구구단이 출력 
+	</div>
+	
+</body>
+</html>

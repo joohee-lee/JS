@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tab-jquer-function</title>
+	<style>
+		*{ margin: 0; padding: 0; }
+		body{ 
+			margin: 10px;
+			font-family: '맑은 고딕', malgun-gothic, sans-serif;
+			font-size: 16px;
+			line-height: 1.2;
+		}
+		h1{ font-size: 20px; }
+		.tab-menu{
+			list-style: none;
+			width: 600px;
+			height: 80px;
+			margin: 0 auto 30px;
+		}
+
+		.tab-menu li{
+			float: left;
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			box-sizing: border-box;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.tab-menu li[data-selected="true"]{
+			background-color: #333;
+			color: #fff;
+		}
+
+		
+	</style>
+	<script src="libs/jquery-1.11.0.min.js"></script>
+	<script>
+		//이벤트 등록  
+		$(document).ready(function(){
+
+			//인스턴스 생성 
+			var tabMenu1 = new TabMenu();
+			//요소 초기화 및 이벤트 등록 호출하기
+			tabMenu1.init("#tabMenu1");
+			tabMenu1.bindEvent();
+
+			//인스턴스 생성 
+			var tabMenu2 = new TabMenu();
+			//요소 초기화 및 이벤트 등록 호출하기
+			tabMenu2.init("#tabMenu2");
+			tabMenu2.bindEvent();
+			
+			
+		});
+
+		//함수 방식 
+		function TabMenu() {
+
+			this.$tabMenu = null;
+			this.$menuItems = null;
+		
+			//초기화 
+			this.init = function(selector){
+				this.$tabMenu = $(selector);
+				this.$menuItems = this.$tabMenu.find('li');
+			}
+
+			//이벤트 바이딩 
+			this.bindEvent = function(){
+				var objThis = this;
+				this.$menuItems.on("click", function() {
+					objThis.setCurrentItem($(this));
+				});
+			}
+
+			this.setCurrentItem = function($el){
+			 	var isSelected = $el.attr('data-selected'); 
+			 	if(isSelected === 'false'){
+			 		this.$menuItems.attr('data-selected', false);
+			 		$el.attr('data-selected', true);
+			 	}
+			}
+	
+		}
+	</script>
+
+</head>
+<body>
+	<h1>1.  탭메뉴</h1>
+	<ul class="tab-menu" id="tabMenu1">
+		<li class="menuitem1" data-selected="true">google</li>
+		<li class="menuitem2" data-selected="false">facebook</li>
+		<li class="menuitem3" data-selected="false">pinterest</li>
+		<li class="menuitem4" data-selected="false">twitter</li>
+		<li class="menuitem5" data-selected="false">airbnb</li>
+		<li class="menuitem6" data-selected="false">path</li>
+	</ul>
+
+	<h1>2.  탭메뉴</h1>
+	<ul class="tab-menu" id="tabMenu2">
+		<li class="menuitem1" data-selected="true">google</li>
+		<li class="menuitem2" data-selected="false">facebook</li>
+		<li class="menuitem3" data-selected="false">pinterest</li>
+		<li class="menuitem4" data-selected="false">twitter</li>
+		<li class="menuitem5" data-selected="false">airbnb</li>
+	</ul>
+	
+</body>
+</html>

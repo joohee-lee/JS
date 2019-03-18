@@ -1,0 +1,114 @@
+//test.js 
+
+<script>
+	function MyClass(){
+
+		this.property1 = 'value1';
+	}
+
+	MyClass.prototype.method1 = function(){
+		alert(this.property1);
+	}
+
+	var my1 = new MyClass();
+	my1.method1();
+</script>
+
+
+<script>
+	var dat =10;
+	function outer(){
+		this.data = 20;
+		data= 30;
+
+		console.log("1. data1 = "+data); // 30
+		console.log("2. data2 = " +this.data) //30
+		console.log("3. window.data =" +window.data) //30 
+	}
+
+
+	outer();
+</script>
+
+<script>
+	var data = 10
+	function outer(){
+
+		function inner(){
+			this.data = 20;
+			data = 30;
+
+			console.log("1. data1 = "+data); // 30
+			console.log("2. data2 = " +this.data) //30
+			console.log("3. window.data =" +window.data) //30 
+		}
+
+		inner();
+	}
+
+	outer();
+</script>
+
+
+<script>
+	var data=10;
+	$('#myButton').click(function(){
+
+		this.data = 20;
+		data = 30;
+
+		console.log("1. data1 = "+data); // 30
+		console.log("2. data2 = " +this.data) //20
+		console.log("3. window.data =" +window.data) //30 
+
+	});
+</script>
+
+<script>
+	var data = 10;
+	function MyClass(){
+		this.data = 0;
+	}
+
+	MyClass.prototype.method1 = function(){
+		
+		function inner(){
+			this.data = 20;
+			data = 30;
+
+			console.log("1. data1 = "+data); 
+			console.log("2. data2 = " +this.data) 
+			console.log("3. window.data =" +window.data)  
+		}
+		
+		inner();	
+	}
+
+	// 인스턴스 생성 
+	var my1 = new MyClass();
+	my1.method1();
+</script>
+
+
+<script>
+	var userName = "test";
+
+	function User(name){
+		this.userName = name;
+	}
+
+ 	User('leejoohee');
+ 	console.log("userName : " + userName )
+</script>
+
+<script>
+	var userName = "test";
+
+	function User(name){
+		this.userName = name;
+	}
+
+ 	var user = new User('leejoohee');
+ 	console.log("userName : " + userName )
+ 	console.log("userName : " + user.userName )
+</script>

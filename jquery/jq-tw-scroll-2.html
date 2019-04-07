@@ -81,18 +81,22 @@
 
 		.banner{
 			height: 3.75rem;
-			position: fixed;
+			/* animation: fadein;
+			animation-delay: 2s;
+			animation-duration: 1s;
+			animation-iteration-count: initial;
+            */
+		}
+
+        .banner.fixed{
+            position: fixed;
 			z-index: 30;
 			left: 0;
 			right: 0;
 			bottom: 0;
 			width: 100%;
 			overflow: hidden;
-			animation: fadein;
-			animation-delay: 2s;
-			animation-duration: 1s;
-			animation-iteration-count: initial;
-		}
+        }
 		.banner img{ width: 100%; height: 3.75rem;}
 		
 		@keyframes fadein{
@@ -188,18 +192,11 @@
 				</div>
 
 				<!-- banner -->
-				<!--
-				<div class="banner">
+				<div class="banner fixed">
 					<div class="banner-img">
-						<a href="http://www.daum.net" class="fe-link-external" target="_blank" title="새창"><img src="https://cdnm.tworld.co.kr/img/t_m5g/og_5mktp_sale_banner_02.png" alt=""></a>
-					</div>
+                        <a href="http://www.daum.net" class="fe-link-external" target="_blank" title="새창"><img src="https://cdnm.tworld.co.kr/img/t_m5g/og_5mktp_sale_banner_02.png" alt=""></a>
+                    </div>
 				</div>
-				-->
-				<div class="banner">
-						<div class="banner-img">
-							<img src="https://cdnm.tworld.co.kr/img/t_m5g/og_5mktp_sale_banner_02.png" alt="">
-						</div>
-					</div>
 				<!-- //banner -->
 			</div>
 		</div>
@@ -207,52 +204,13 @@
 	<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
 	<script>
         //page transition
-       
-		var pageTrans = function(){
+       var pageTrans = function(){
 			$('.og5-intro-cover').fadeOut(400, function(){
 				$(window).scrollTop(0);
 			});
 		};
 
-		//
-		$(document).ready(function(){
-            //alert("pagetrans");
-            //page transtion
-            setTimeout("pageTrans()", 2000);
-            
-            $('.og5-intro-cover').on('touchstart           touchmove', function (e) {
-                e.preventDefault();
-           });
-
-			//banner
-			var $banner = $('.banner');
-            var timer;
-            $(window).on('touchstart touchend', function(e){
-                if (e.type === 'touchstart') {
-					//alert("xx");
-					clearTimeout(timer);
-					$banner.stop().slideUp();
-                } else {
-					//alert("yy");
-					//$banner.stop().slideDown();
-					timer = setTimeout(function () {
-                    $banner.stop().slideDown();
-                    }, 500);
-                }
-            });
-        
-		});	
-
-		//scroll event
-		$(window).on('scroll', function(){
-			console.log( 'scroll');
-			headerScroll();
-			tabScroll()
-		});
-
-		//location.reload(true);
-
-		//body class add
+        //body class add
 		var headerScroll = function(){
 			var st = window.scrollY;
 			var $elbody =  $(document.body);
@@ -280,7 +238,53 @@
 			}else{
 				$elTab.attr('data-fixed', 'false');
 			}
-		};
+        };
+        
+	    //
+		$(document).ready(function(){
+            //alert("pagetrans");
+            //page transtion
+            setTimeout("pageTrans()", 2000);
+            
+            //bottom banner
+            $('.og5-intro-cover').on('touchstart touchmove', function (e) {
+                e.preventDefault();
+            });
+
+            //banner
+            var $banner = $('.banner');
+            var timer;
+            $(window).on('touchstart touchend', function(e){
+                if (e.type === 'touchstart') {
+                    clearTimeout(timer);
+                    $banner.stop().slideUp();
+                } else {
+                    timer = setTimeout(function () {
+                    $banner.stop().slideDown();
+                    }, 500);
+                }
+            });
+
+            //app : _blank
+            /*
+            if (Tw.BrowserHelper.isApp()) {
+                $('.fe-link-external').on('click', function (e) {
+                    e.preventDefault();
+                    Tw.CommonHelper.showDataCharge(function () {
+                        Tw.CommonHelper.openUrlExternal(e.currentTarget.href);
+                    });
+                })
+            } 
+            */
+        
+		});	
+
+		//scroll event
+		$(window).on('scroll', function(){
+			console.log( 'scroll');
+			headerScroll();
+			tabScroll()
+		});
 	</script>
 </body>
 </html>

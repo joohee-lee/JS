@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>sk-scroll-test</title>
+	<style>
+		*{margin:0; padding:0;}
+		ul, li{list-style: none;}
+		img {
+			border: none;
+			margin: 0;
+			padding: 0;
+			line-height: 0;
+			font-size: 0;
+		}
+
+		html{ font-size: 16px;}
+		html,body{ width: 100%}
+		body{
+			overflow-x: hidden;
+			color: #000;
+			line-height: 1.4;
+			letter-spacing: -.03em;
+			word-break: keep-all;
+			/*background: #edeef0;*/
+			padding-bottom: 1.875rem;
+			font-family: sans-serif;
+		}
+		.wrap{ width: 100%; overflow-x: hidden;}
+		.header-wrap{}
+		
+		.content-wrap{}
+		.content-wrap .content{}
+
+		.header-wrap{
+			width: 100%;
+			height: 52px;
+			background-color: #ccc;
+		}
+		
+		.section-1{
+			position: relative;
+		}
+		.section-1 .txt-wrap{ position: absolute; left: 0; top:0}
+		.section-1 img{ display:block; width: 100%; vertical-align: top;}
+		
+		.tab{
+			width: 100%;
+		}
+		
+		.tab-list{
+			width: 100%;
+			background-color: #fff;
+			border-bottom: 1px solid #ddd;
+		}
+		.tab-list > .item{ 
+			float: left;
+			width: calc(100%/3);
+			padding: 10px 0;
+			text-align: center	
+		}
+		.tab-list:after{
+			content:"";
+			display: block;
+			clear: both;
+		}
+		/* tab js */
+		.tab[data-fixed="true"] { padding-top: 4rem;}
+		.tab[data-fixed="true"] .tab-list{
+		position: fixed;
+		z-index: 1;
+		top: 51px;
+		left: 0;
+		width: 100%;
+		border-top: 1px solid #e5e5e5;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		}
+
+		.banner{
+			height: 3.75rem;
+			position: fixed;
+			z-index: 30;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			overflow: hidden;
+			animation: fadein;
+			animation-delay: 2s;
+			animation-duration: 1s;
+			animation-iteration-count: initial;
+		}
+		.banner img{ width: 100%; height: 3.75rem;}
+		
+		@keyframes fadein{
+			0% {
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY( 3.75rem);
+			}
+			100% {
+				opacity: 1;
+				visibility: visible;
+				transform: translateY( 0);
+			}
+		}
+
+		/* js */
+		.scroll .header-wrap{
+			z-index: 1;
+			position: fixed;
+			left: 0;
+			top: 0;
+			background-color: #fff;
+			border-bottom: 1px solid #ddd;
+			box-shadow: 0 0 2px 2px rgba(0,0,0,.05);
+			color: #000;
+		}
+
+		.scroll .content-wrap{
+			margin-top: 52px;
+		}
+
+		/* page transition */
+		.og5-intro-cover{ 
+			width: 100%; height: 100%; 
+			overflow: hidden;
+			z-index: 9999;
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background:orange;
+			padding: 0 1.125rem;
+		}
+
+	</style>
+</head>
+<body class="og5 ">
+		<!-- cover test -->
+	<div class="og5-intro-cover">
+		<div class="og5-intero-inner">
+				og5 - intro 화면 페이지 전환 테스트 
+		</div>
+	</div>
+	<!-- //cover test -->
+	<div class="wrap">
+		<div class="header-wrap">
+			<div class="header-inner">Header Test</div>
+		</div>
+		<div class="content-wrap">
+			<div class="content">
+
+				<!-- section -->
+				<div class="section-1">
+					<div class="txt-wrap">TEST</div>
+					<div class="img-wrap">
+						<img src="https://cdnm.tworld.co.kr/img/t_m5g/og_5mktp_keyvisual_img_03.png" alt="">
+					</div>
+				</div>
+				<!-- //section -->
+				
+				<!--tab-->
+				<div class="cp-tab tab" data-current="1" data-fixed="false">
+					<div class="tab-inner">
+						<ul class="tab-list">
+							<li class="item" data-index="1"><a href="#">tab1</a></li>
+							<li class="item" data-index="2"><a href="#">tab2</a></li>
+							<li class="item" data-index="3"><a href="#">tab3</a></li>
+						</ul>
+						<div class="tabpanels">
+							<div class="tabpanel" data-index="1">tab1-panel</div>
+							<div class="tabpane2" data-index="2">tab2-panel</div>
+							<div class="tabpane3" data-index="3">tab3-panel</div>
+						</div>
+					</div>
+				</div>
+				<!--//tab-->
+
+				<div class="secion--2" style="height: 1000px;">
+					<div class="div-inner">
+						testettseteekekdkdkkk
+					</div>
+				</div>
+
+				<!-- banner -->
+				<div class="banner">
+					<div class="banner-img"><img src="https://cdnm.tworld.co.kr/img/t_m5g/og_5mktp_sale_banner_02.png" alt=""></div>
+				</div>
+				<!-- //banner -->
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+	<script>
+		//page transition
+		var pageTrans = function(){
+			$('.og5-intro-cover').fadeOut(400, function(){
+				$(window).scrollTop(0);
+			});
+		};
+
+		//
+		$(document).ready(function(){
+			//alert("pagetrans");
+			setTimeout("pageTrans()", 2000); 
+		});	
+
+		//scroll event
+		$(window).on('scroll', function(){
+			
+			console.log( 'scroll');
+			headerScroll();
+			tabScroll()
+
+		});
+
+		//location.reload(true);
+
+		//body class add
+		var headerScroll = function(){
+			var st = window.scrollY;
+			var $elbody =  $(document.body);
+
+			if (scrollY > 0){
+				$elbody.addClass('scroll');
+			}else{
+				$elbody.removeClass('scroll');
+			}
+		};
+
+		//tab 
+		var tabScroll = function(){
+			var st = window.scrollY;
+			var $elHd = $('.header-wrap');
+			var $elHdHeight = $('.header-wrap').outerHeight();
+			
+			var $elTab = $('.og5 .tab');
+			var $elTabPos = $elTab.offset();
+
+			if( $elTabPos.top <= Number( st + $elHdHeight)){
+				console.log("fixed");
+				console.log($elTab.data('data-fixed'));
+				$elTab.attr('data-fixed', 'true');
+			}else{
+				$elTab.attr('data-fixed', 'false');
+			}
+		};
+	</script>
+</body>
+</html>

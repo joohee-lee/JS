@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here - JQ </title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+window.onload = function() { alert("첫번째 window.onload"); };
+window.onload = function() { alert("두번째 window.onload"); };
+$(document).ready(function() { alert("첫번째 ready()"); });
+$(document).ready(function() { alert("두번째 ready()"); });
+</script>
+ 
+</head>
+<body>
+ 	<div class="body">
+ 		 window.onload 함수는 웹페이지의 로딩이 끝나는 시점에 실행되는 함수 <br>
+
+		 이 스크립트를 실행하게 되면 첫번째 ready() -> 두번째 ready() -> 두번째 window.onload 의 순서로 얼럿창이 뜨게된다. (첫번째 window.onload 는 실행되지 않는다)
+
+ 	</div>
+</body>
+</html>
+

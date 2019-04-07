@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+ $(window).load(function() {
+     console.log("console> window.load()");
+     alert("console> window.load()");
+ });
+ 
+ $(document).ready(function() {
+     console.log("console> document.ready()");
+     alert("console> document.ready()");
+ });
+</script>
+ 
+</head>
+<body onload="console.log('console> body onload...'); alert('console> body onload...');">
+ <div>
+ 	//document.ready() vs window.load() vs body onload 이벤트 비교
+
+	-> document.ready() > window.load() > body onload 이벤트 순서대로 실행
+
+ </div>
+</body>
+</html>
+

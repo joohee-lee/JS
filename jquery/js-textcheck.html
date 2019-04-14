@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test - jquery</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <style>
+        .a { color: red; border: 1px solid red;}
+        .b { color: blue; }
+        .btn{
+            padding: 10px;
+            background: blue;
+            color: #fff;
+        }
+
+        .dimmed{
+            background: #ccc;
+        }
+        
+    </style>
+
+</head>
+<body>
+     <textarea name="" class="texta" id="" cols="30" rows="10"></textarea>
+     <button type="button" name="xx" class="btn dimmed" disabled>입력</button>
+
+     <script>
+
+        var dwncheckWord = function(){
+            $('.texta').on('keyup', function(e){
+                e.preventDefault();
+               
+                var el = $(this);
+                var elval = el.val();
+                var elleng = elval.length;
+                var _size = 5;
+                var elBtn = $('.btn');
+
+                if( elleng > _size ){
+                   el.addClass('a');
+                   elBtn.removeClass('dimmed');
+                   elBtn.attr('disabled', false);
+                }else{
+                   el.removeClass('a');
+                   elBtn.addClass('dimmed');
+                   elBtn.attr('disabled', true);
+                }
+            });
+        }
+
+        $(document).ready(function(){
+           dwncheckWord();
+         })
+     </script>
+</body>
+</html>

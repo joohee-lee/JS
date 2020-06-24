@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-touch</title>
+    <style>
+        #test{
+            width: 100%;
+            height: 480px;
+            background: #ff0;
+            color: #000;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<!--
+screenX , screenY  : device 화면 기준으로 한 좌표
+clientX , clientX  : 브라우저 화면을 기준으로 한 좌표(스크롤 미포함)
+pageX , pageY  : 스크롤을 포함한 브라우저를 기준으로 한 좌표
+
+-->
+<body>
+    <div class="box" id="box1">
+        <h3> Touch Me! </h3>
+    </div>
+    <h3 id="statusdiv">Status</h3>
+</body>
+<script>
+    //변수 정의 
+    var box1 = document.getElementById("box1");
+    var statusdiv = document.getElementById("statusdiv");
+    var startx = 0;
+    var starty = 0;
+    var dist = 0;
+
+    //메서드 정의 
+    function handleStart(e) {
+
+        console.log("start");
+        
+        var touchobj = e.changedTouches[0];
+        startx = parseInt(touchobj.clientX);
+        starty = parseInt(touchobj.clientY);
+        statusdiv.innerHTML = 'status: touchestart<br> ClientX: '  + startx + 'px, ClientY: '+ touchobj.clientY + 'px';
+        e.preventDefault();
+    }
+
+    function handleMove (e) {
+        e.preventDefault();
+        var touchobj = e.changedTouches[0];
+        var dist =parseInt(touchobj.clientX) - startx;
+        var disty = parseInt(touchobj.clientY) - starty;
+        statusdiv.innerHTML = 'status: touchmove<br> Horizontal distance traveled: ' + dist + 'px, ClientY: '+ touchobj.clientY + 'px';
+        
+    }
+
+    function handleEnd (e) {
+        e.preventDefault();
+        var touchobj = e.changedTouches[0];
+        statusdiv.innerHTML = 'status: touchend<br> Resting x coordinate: ' + touchobj.clientX + 'px, ClientY: ' + touchobj.clientY + 'px';
+       
+    }
+
+    //이벤트 등록 
+    box1.addEventListener("touchstart", handleStart, false);
+    box1.addEventListener("touchend", handleEnd, false);
+    box1.addEventListener("touchmove", handleMove, false);
+    
+   
+</script>
+
+</html>

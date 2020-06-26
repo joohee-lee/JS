@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<style>
+    .track{
+        width: 400px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+    .track:after{
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: black;
+        position: absolute;
+        top: 49%;
+        z-index: -1;
+    }
+
+    .box{
+        width: 100px;
+        height: 200px;
+        font-size: 2em;
+        border: 1px solid orange;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background: lightyellow;
+        position: absolute;
+        padding-top: 10px;
+        -moz-box-shadow: 0 0 5px gray;
+        box-shadow: 0 0 5px grey;
+        text-align: center;
+        line-height: 1;
+    }
+</style>
+<body>
+    <!-- https://d2.naver.com/helloworld/80243 -->
+    <div class="track">
+        <div id="box" class="box" style="left: 0; top: 0;">
+                Drag me 
+
+                <a href="http://www.naver.com" style="position: relative; z-index: 10;">naver.com</a>
+        </div>
+    </div>
+
+    <script>
+
+         //toucevent 체크
+
+         var bStartEvent = false;
+        //touchstart 이벤트 발생 여부 플래그
+        var bMoveEvent = false;
+        //touchmove 이벤트 발생 여부 플래그
+        
+        /*
+        function init(){
+            document.addEventListener("touchstart", this.onStart.bind(this), false);
+            document.addEventListener("touchmove", this.onMove.bind(this), false);
+            document.addEventListener("touchend", this.onEnd.bind(this), false);
+        }
+ 
+
+
+        function onStart(e) {
+            bStartEvent = true;
+        }
+        
+        function onMove(e) {
+            
+            if(!bStartEvent) {
+                return;
+                //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+            }
+            bMoveEvent = true;
+            //touchMove 이벤트 발생 여부를 설정한다.
+
+        }
+        
+        function onEnd(e) {
+            if(bStartEvent && !bMoveEvent) {
+                //클릭 이벤트로 판단한다.
+                alert('Tap!');
+            }
+            //각 플래그 값을 초기값으로 설정한다.
+            bStartEvent = false;
+            bMoveEvent = false;
+        }
+        */
+
+        //변수 설정 
+        //var flag = false; //touch event 체크 
+        var el = document.getElementById('box');
+        var startx;
+        var dist = 0 ;
+        var touchobj = null //touch object holder
+        
+
+        console.log(el);
+        
+        //함수 정의 
+        function handleStart (e) {
+            console.log("touch");
+            bStartEvent = true;
+
+            touchobj = e.changedTouches[0];
+            boxLeft = parseInt(el.style.left);
+            startx = parseInt(touchobj.clientX);
+            //e.preventDefault();
+
+
+            console.log(boxLeft);
+            console.log(startx);
+
+            return false;
+        }
+
+
+        function handleMove (e) {
+
+            if(!bStartEvent) {
+                return;
+                //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+            }
+            
+            bMoveEvent = true;
+            touchobj = e.changedTouches[0];
+            var dist = parseInt(touchobj.clientX) - startx ; // calculate dist traveled by touch point
+            // move box according to starting pos plus dist
+            // with lower limit 0 and upper limit 380 so it doesn't move outside track:
+            el.style.left = ( (boxLeft + dist > 380)? 380 : (boxLeft + dist < 0)? 0 : boxLeft + dist ) + 'px';
+            //e.preventDefault()
+
+            console.log("bStartEvent : " + bStartEvent );
+            console.log("bMoveEvent : " + bMoveEvent);
+
+            return false;
+        }
+        
+
+        function  handleEnd (e) {
+            if(bStartEvent && !bMoveEvent) {
+                //클릭 이벤트로 판단한다.
+                alert('Tap!');
+            }
+            //각 플래그 값을 초기값으로 설정한다.
+            bStartEvent = false;
+            bMoveEvent = false;
+
+            
+            console.log("bStartEvent : " + bStartEvent );
+            console.log("bMoveEvent : " + bMoveEvent);
+
+            return false;
+
+        }
+
+
+        //이벤트 등록 
+        function init(){
+            /*
+            document.addEventListener("touchstart", this.onStart.bind(this), false);
+            document.addEventListener("touchmove", this.onMove.bind(this), false);
+            document.addEventListener("touchend", this.onEnd.bind(this), false);
+            */
+
+            el.addEventListener('touchstart', handleStart, false);
+            el.addEventListener('touchmove', handleMove, false);
+            el.addEventListener('touchend', handleEnd, false);
+
+     
+        }
+ 
+        init();
+        /*
+        el.addEventListener('touchstart', handleStart, false);
+        el.addEventListener('touchmove', handleMove, false);
+        */
+    </script>
+</body>
+</html>

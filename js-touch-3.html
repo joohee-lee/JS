@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<style>
+    * {margin: 0; padding: 0;}
+    .a { height: 50px; background: #ccc;}
+    .b { height: 100px; background: #ddd; }
+    .c {height: 300px; background: yellow; transition: height  1.5s; }
+    .d{
+        width: 100%;
+        background: #fff;
+        transition: top  2s;
+        /*
+        
+        
+        */
+       
+        
+    }
+    .touch-area{
+        padding: 10px;
+    } 
+
+    .none{
+        height: 0px;
+    }
+
+    .block{
+        display: block
+    }
+</style>
+<body>
+    <div class="wrap">
+        <div class="box a"> A </div>
+        <div class="box b"> B </div>
+        <div class="box c" id="js-map" data-map="true"> c </div>
+        <div class="box d" data-event="false" id="js-list" style="position: relative; top: 0;"> 
+            <div class="touch-area btn-touch" id="js-touch">
+                touch area
+            </div>
+            <div>
+                <ul>
+                    <li>가나다라마바사
+                        <a href="#">a</a>
+                        <button>dfdfdfd</button>
+                    </li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                    <li>가나다라마바사</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+        //변수 설정 
+        //var flag = false; //touch event 체크 
+        var bStartEvent = false;
+        //touchstart 이벤트 발생 여부 플래그
+        var bMoveEvent = false;
+        //touchmove 이벤트 발생 여부 플래그
+
+        var elbtn = document.getElementById("js-touch");
+        var elbox = document.getElementById("js-list");
+        var elmap = document.getElementById("js-map");
+
+        var startY;
+        var dist = 0 ;
+        var touchobj = null //touch object holder
+        var boxTop;
+        
+        //함수 정의 
+        function handleStart (e) {
+            console.log("touch");
+            bStartEvent = true;
+
+            touchobj = e.changedTouches[0];
+            boxTop = parseInt(elbox.style.top);
+            startY = parseInt(touchobj.clientY);
+            //e.preventDefault();
+
+
+            console.log(boxTop);
+            console.log(startY);
+
+            return false;
+        }
+
+
+        function handleMove (e) {
+
+            if(!bStartEvent) {
+                return;
+                //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+            }
+            
+            bMoveEvent = true;
+            //touchobj = e.changedTouches[0];
+            //var dist = parseInt(touchobj.clientY) - startY ; // calculate dist traveled by touch point
+            // move box according to starting pos plus dist
+            // with lower limit 0 and upper limit 380 so it doesn't move outside track:
+            //elbox.style.top= ( (boxTop + dist > 380)? 380 : (boxTop + dist < 0)? 0 : boxTop + dist ) + 'px';
+            //e.preventDefault()
+
+            elmap.setAttribute("class", "box c none");
+            elmap.setAttribute("data-map", "false");
+
+            return false;
+        }
+        
+
+        function  handleEnd (e) {
+            if(bStartEvent && !bMoveEvent) {
+                //클릭 이벤트로 판단한다.
+                alert('Tap!');
+            }
+            //각 플래그 값을 초기값으로 설정한다.
+            bStartEvent = false;
+            bMoveEvent = false;
+
+            return false;
+
+        }
+
+
+        //이벤트 등록 
+        function init(){
+            /*
+            document.addEventListener("touchstart", this.onStart.bind(this), false);
+            document.addEventListener("touchmove", this.onMove.bind(this), false);
+            document.addEventListener("touchend", this.onEnd.bind(this), false);
+            */
+
+            elbtn.addEventListener('touchstart', handleStart, false);
+            elbtn.addEventListener('touchmove', handleMove, false);
+            elbtn.addEventListener('touchend', handleEnd, false);
+
+     
+        }
+ 
+        init();
+
+
+</script>
+</html>

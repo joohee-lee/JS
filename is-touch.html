@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>터치</title>
+</head>
+<body>
+    <script>
+        var bStartEvent = false;
+        //touchstart 이벤트 발생 여부 플래그
+        var bMoveEvent = false;
+        //touchmove 이벤트 발생 여부 플래그
+        
+        function init(){
+            document.addEventListener("touchstart", this.onStart.bind(this), false);
+            document.addEventListener("touchmove", this.onMove.bind(this), false);
+            document.addEventListener("touchend", this.onEnd.bind(this), false);
+        }
+        
+        function onStart(e) {
+            bStartEvent = true;
+        }
+        
+        function onMove(e) {
+            
+            if(!bStartEvent) {
+                return;
+                //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+            }
+            bMoveEvent = true;
+            //touchMove 이벤트 발생 여부를 설정한다.
+
+
+        }
+        
+        function onEnd(e) {
+            if(bStartEvent && !bMoveEvent) {
+                //클릭 이벤트로 판단한다.
+                alert('Tap!');
+            }
+            //각 플래그 값을 초기값으로 설정한다.
+            bStartEvent = false;
+            bMoveEvent = false;
+        }
+
+        init();
+
+
+</script>
+
+    <div>
+        <div id="el" style="width: 100%; height: 500px; background: #CCC;">
+            <a href="http://naver.com">naver.com</a>
+        </div>
+    </div>
+</body>
+</html>

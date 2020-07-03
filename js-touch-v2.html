@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <link rel="shortcut icon" href="/img/common/favicon.ico" />
+    <link rel="shortcut icon" href="/img/common/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/common/favicon.png" />
+    <meta name="description" content="페이지설명" />
+    <meta name="keywords" content="서비스키워드" />
+    <meta property="og:title" content="SKT 홈페이지" />
+    <meta property="og:site_name" content="SKT" />
+    <meta property="og:image" content="/image/common/skt_facebook.jpg" />
+    <meta property="og:description" content="SKT framework" />
+    <title>SKT</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" media="all" /><!-- [C] 공통 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/layout.css" media="all" /><!-- [C] 박스 모델 -->
+    <link rel="stylesheet" type="text/css" href="/css/widgets.css" media="all" /><!-- [C] 기능별 위젯 -->
+    <link rel="stylesheet" type="text/css" href="/css/components.css" media="all" /><!-- [C] 단락별 컴퍼넌트 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnm.tworld.co.kr/css/style-bffb0a9532.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="https://cdnm.tworld.co.kr/css/vendor.css" media="all" />
+    <script type="text/javascript" src="/lib/jquery-1.12.3.min.js"></script><!--[C] jquery API-->
+    <script type="text/javascript" src="/lib/handlebars-v4.0.5.js"></script><!--[C] handlebars tmpl API-->
+    <script type="text/javascript" src="/lib/slick.js"></script><!--[C] iscroll API -->
+    <script type="text/javascript" src="/js/$vars.js"></script><!--[C] 전역 변수 -->
+    <script type="text/javascript" src="/js/common.js"></script><!--[C] 공통 기능 -->
+    <script type="text/javascript" src="/js/widgets.js"></script><!--[C] 기능별 위젯 -->
+    <script type="text/javascript" src="/js/chart.js"></script><!-- [C] 단락별 컴퍼넌트 -->
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&amp;submodules=panorama,geocoder,drawing,visualization"></script>
+    
+    <style>
+        .no-scroll{
+            position: fixed;
+            overflow: hidden;
+            width: 100%;
+            height: 100%
+        }
+
+        
+     </style>
+</head>
+<body class=""> <!-- no-scroll -->
+    <!--
+     디자인 // 
+
+= O2O 일정 
+= app 배포 예정 8월 
+
+
+# 매장검색했을 경우 리스트 타입 
+
+	1. 위치 동의를 안한경우 /  3KM 근방내에 검색이 없을 경우 //  o2o-normml-type
+
+		-> 일반스크롤 
+
+	2. 매장이 있을 경우 // 티맵 
+		1) 지도가 바닥에 펼침 (디바이스 화면 꽉 차게)	//	o2o-maplist-type
+		2) 리스트 하나만 바닥에서 노출 (only 1개만 있을 경우.)
+		3) T 맵 처럼 당겨서 리스트를 스크롤(터치)
+
+
+
+	3. 체크사항 
+	 - 처음 진입했을때는 일반 스크롤 인건지 아닌지 체크 ?
+	 - touch 와 scroll 이벤트 영역 
+	 - touch up / down 방향 체크 
+	 - 예외처리 
+   -->
+    <!-- #skip_navigation -->
+    <div id="skipNav" class="skip_navi">
+        <ul>
+            <!-- 접근성 수정 -->
+            <li><a href="#contents">본문 바로가기</a></li>
+            <!--// 접근성 수정 -->
+        </ul>
+    </div>
+    <!--// #skip_navigation -->
+    <div class="wrap">
+        <!-- #header -->
+		<div id="header" class="header-wrap">
+			<div class="h-belt">
+				<div class="h-default">
+					<div class="h-menu">
+						<button type="button" class="icon-gnb-menu"><span class="blind">메뉴열기</span></button>
+					</div>
+					<div class="h-tit">지점∙대리점 찾기</div>
+					<div class="h-serarch">
+						<button class="icon-gnb-search"><span class="blind">검색</span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--// #header -->
+        <!-- #contents -->
+        <div id="contents" class="container-wrap">
+            <div class="container">
+                <!-- .cont-box -->
+                <div class="cont-box nogaps">
+                    <!-- .component -->
+                    <div class="component" >
+                        <div id="js-tab" class="component-box tabs" data-header-noborder="true" > 
+                            <div class="tab-area new01"><!-- //190520_리디자인 01 :클래스 수정 -->
+                                <div class="tab-linker">
+                                    <ul role="tablist">
+                                        <li role="tab" aria-selected="true" aria-controls="tab1-tab" id="tab1"><a href="">매장명</a></li><!-- 링크 이동시 활성화 된 탭에 aria-selected="true" 설정 -->
+                                        <li role="tab" aria-selected="false" aria-controls="tab2-tab" id="tab2"><a href="">주소</a></li>
+                                        <li role="tab" aria-selected="false" aria-controls="tab3-tab" id="tab3"><a href="">지하철</a></li>
+                                    </ul>
+                                </div>
+                                <hr class="cont-sp type1" aria-hidden="true"> <!-- 190520 [OP002-403] 추가01 -->
+                                <div class="tab-contents">
+                                    <ul>
+                                        <li role="tabpanel" id="tab1-tab" aria-labelledby="tab1">
+                                            <!-- .search-point -->
+                                            <div class="search-point">
+                                                <!-- .cont-box -->
+                                                <div class="cont-box nogaps-btm">
+                                                    <!-- .inputbox -->
+                                                    <span class="inputbox mb20"><!-- //190520_수정 01 -->
+                                                        <span class="input">
+                                                            <input type="text" title="지점∙대리점명" placeholder="지점∙대리점명" value="" /><!-- 웹접근성 수정 -->
+                                                            <!-- <button class="cancel"><span class="blind">삭제</span></button> -->
+                                                        </span>
+                                                    </span>
+                                                    <!-- // .inputbox -->
+                                                    <!-- .btn-search -->
+                                                    <div class="btn-search" style="display: none;">
+                                                        <ul class="bt-slice">
+                                                            <li class="bt-red1"> <!-- //190520_리디자인 02 : 클래스 수정 -->
+                                                                <button disabled="disabled">검색</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- // .btn-search -->
+                                                </div>
+                                                <!-- // .cont-box -->
+                                            </div>
+                                            <!-- // .search-point -->
+                                        </li>
+                                        <li role="tabpanel" id="tab2-tab" aria-labelledby="tab2">
+                                        </li>
+                                        <li role="tabpanel" id="tab3-tab" aria-labelledby="tab3">
+                                        </li>
+                                    </ul>
+                                </div>
+                                 <!-- 링크영역 -->
+
+                        <div class="">
+                            <a href="#"  onclick="javsscript: setList(); return false;">리스트</a> <br>
+                            <a href="#" onclick="javsscript: setMap(); return false;">지도</a>
+                        </div>
+                            </div>
+                        </div>
+
+
+                       
+                    </div>
+                    <!--// .component -->
+                </div>
+                <!--// .cont-box -->
+
+                <style>
+                    .o2o-info{
+                        position: relative;
+                        width: 100%;
+                        overflow: hidden;
+                    }
+
+                    .o2o-info .o2o-tmap{
+                    }
+                    .o2o-list{
+                        position: relative; margin-top: -190px; overflow-y: scroll; background-color: #fff; transition: margin-top 1s;
+                        z-index: 101;
+                    }
+                    .q-wrap{
+                        z-index: 999;
+                    }
+                </style>
+                <div class="o2o-info"><!-- height 값  전체 높이값 -  상단 탑영역 빼기 -->
+                    <div id="map" class="o2o-tmap" style="height:516px ;" ></div>
+                    <div class="o2o-list js-scroll-area">
+                        <div class="inner" style="padding: 20px;">
+                            <ul>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>P S & M ( 을지로지점) <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt>끝끝.... <span>공식인증대리점</span> </dt>
+                                        <dd>서울 종로구 우정국로 6, 1층 (고나철동, SK텔레콤)
+                                            서울 종로구 관철동 290
+                                        </dd>
+                                    </dl>
+                                    <p>요금수납, 기기변경, 임대폰, 명의변경,  멤버십 즉발가능, 바로픽업…</p> 
+                                    <div>
+                                        <button>전화걸기</button>
+                                        <button>상담예약ddddd</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #gnb -->
+        <div id="gnb" class="gnb-wrap on">
+            <!-- 상태값에 따라 사용된 아이콘 모양
+                normal : *-n
+                press : *-p
+                selected normal : *-sn
+                selected press: *-sp
+                <i class="icon-fab-pin-n-80"><span class="blind">pin</span></i>
+                <i class="icon-fab-pin-p-80"><span class="blind">pin press</span></i>
+                <i class="icon-fab-pin-s-80"><span class="blind">pin selected</span></i>
+                <i class="icon-fab-pin-sp-80"><span class="blind">pin selected press</span></i>
+                <i class="icon-fab-bi-n-80"><span class="blind">bi</span></i>
+                <i class="icon-fab-bi-p-80"><span class="blind">bi press</span></i>
+                <i class="icon-fab-lock-n-80"><span class="blind">lock</span></i>
+                <i class="icon-fab-lock-p-80"><span class="blind">lock press</span></i>
+                <i class="icon-fab-lock-s-80"><span class="blind">lock selected</span></i>
+                <i class="icon-fab-lock-sp-80"><span class="blind">lock selected press</span></i>
+            -->
+            <div class="q-wrap">
+                <ul class="q-list">
+                    <li><button type="button"><i class="icon-fab-pin-n-80"><span class="blind">pin</span></i></button></li>
+                    <li><button type="button"><i class="icon-fab-lock-n-80"><span class="blind">lock</span></i></button></li>
+                    <li><button type="button"><i class="icon-fab-bi-n-80"><span class="blind">bi</span></i></button></li>
+                </ul>
+            </div>
+            <!-- 상태값에 따라 사용된 아이콘 모양
+                normal : *-n
+                press : *-p
+                disabled : *-d
+                selected : *-s
+                <i class="icon-gnb-back-d"><span class="blind">back disabled</span></i>
+                <i class="icon-gnb-back-n"><span class="blind">back</span></i>
+                <i class="icon-gnb-back-p"><span class="blind">back press</span></i>
+                <i class="icon-gnb-bi-d"><span class="blind">bi disabled</span></i>
+                <i class="icon-gnb-bi-n"><span class="blind">bi</span></i>
+                <i class="icon-gnb-bi-p"><span class="blind">bi press</span></i>
+                <i class="icon-gnb-internet-d"><span class="blind">internet disabled</span></i>
+                <i class="icon-gnb-internet-n"><span class="blind">internet</span></i>
+                <i class="icon-gnb-internet-p"><span class="blind">internet press</span></i>
+                <i class="icon-gnb-lock-d"><span class="blind">lock disabled</span></i>
+                <i class="icon-gnb-lock-n"><span class="blind">lock</span></i>
+                <i class="icon-gnb-lock-p"><span class="blind">lock press</span></i>
+                <i class="icon-gnb-lock-s"><span class="blind">lock selected</span></i>
+                <i class="icon-gnb-next-d"><span class="blind">next disabled</span></i>
+                <i class="icon-gnb-next-n"><span class="blind">next</span></i>
+                <i class="icon-gnb-next-p"><span class="blind">next press</span></i>
+                <i class="icon-gnb-pin-d"><span class="blind">pin disabled</span></i>
+                <i class="icon-gnb-pin-n"><span class="blind">pin</span></i>
+                <i class="icon-gnb-pin-p"><span class="blind">pin press</span></i>
+                <i class="icon-gnb-pin-s"><span class="blind">pin selected</span></i>
+                <i class="icon-gnb-share-d"><span class="blind">share disabled</span></i>
+                <i class="icon-gnb-share-n"><span class="blind">share</span></i>
+                <i class="icon-gnb-share-p"><span class="blind">share press</span></i>
+            -->
+           
+            <div class="g-wrap" style="display: none;">
+                <ul class="g-list g-coach-box"><!-- .g-coach-box : coach mark사용시 추가 -->
+                    <li><button type="button"><i class="icon-gnb-bi-n"><span class="blind">bi</span></i></button></li>
+                    <li><button type="button"><i class="icon-gnb-back-n"><span class="blind">back</span></i></button></li>
+                    <li><button type="button"><i class="icon-gnb-next-n"><span class="blind">next</span></i></button></li>
+                    <li class="mark-lock on"><!-- .on이 있어야 보임 -->
+                        <button type="button"><i class="icon-gnb-lock-n"><span class="blind">lock</span></i></button>
+                        <!-- 190926[OP002-4000] 수정01 --> 
+                        <span class="tod-coach-mark downarr" style="display:none">
+                            <strong class="point">가려진 정보(*)를<br>볼 수 있어요</strong>
+                            <button class="close"><span class="blind">닫기</span></button>
+                        </span>
+                        <!-- //190926[OP002-4000] 수정01 --> 
+                    </li>
+                    <li class="mark-pin on">
+                        <button type="button"><i class="icon-gnb-pin-n"><span class="blind">pin</span></i></button>
+                        <!-- <span class="tod-coach-mark downarr">
+                            <strong class="point">MY 바로가기</strong><br>추가
+                            <button class="close"><span class="blind">닫기</span></button>
+                        </span> -->
+                    </li>
+                    <li><button type="button"><i class="icon-gnb-share-n"><span class="blind">share</span></i></button></li>
+                </ul>
+            </div>
+        </div>
+        <!-- // #gnb -->
+    </div>
+</body>
+<script>
+    var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10
+    };
+
+    var map = new naver.maps.Map('map', mapOptions);
+    
+    var Hsize = document.body.clientHeight ||  window.innerHeight;
+    var Wsize = document.body.clientWidth ||  window.innerWidth;
+    var tmap = document.getElementsByClassName("o2o-tmap")[0];
+    var scrollArea = document.getElementsByClassName("js-scroll-area")[0];
+
+    var tabsAreaHeight = document.getElementsByClassName("tab-area")[0].clientHeight;
+    var scrollHeight = Number( Hsize - tabsAreaHeight);
+
+
+    function setSize(){
+        
+        tmap.setAttribute("style", "height:" + scrollHeight + "px;"); 
+        scrollArea.setAttribute("style", "height:" + scrollHeight + "px;");
+    }
+    
+    window.onload = function() {
+        setSize();
+    }
+    
+    /* 
+    window.onresize = function() {
+        setSize();
+    };
+
+    */
+
+    //setList()
+    function setList() {
+        //scrollArea.setAttribute("style", "height:" + scrollHeight + "px;" + "margin-top:" + "-"+scrollHeight + "px;");
+        scrollArea.setAttribute("style", "margin-top:" + "-"+scrollHeight + "px;");
+    }
+
+    function setMap() {
+        scrollArea.setAttribute("style", "margin-top:" + "-190px;");
+    }
+
+</script>
+</html>        

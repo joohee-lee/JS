@@ -1,0 +1,136 @@
+
+        var deviceH = window.innerHeight;
+        var aH = document.querySelector(".a").clientHeight;
+        var bH = document.querySelector(".b").clientHeight;
+        var cH = document.querySelector(".c").clientHeight;
+        
+           
+
+        var d = document.querySelector(".d");
+        var elDisplay = document.querySelector(".d-2");
+        var elliH = document.querySelector(".pin-item").clientHeight;
+                
+        
+
+
+        function setSize(){
+
+            console.log("ddd");
+            
+            var displayH = deviceH - (aH+bH+cH);
+            var posTop = displayH - elliH;
+
+            console.log(displayH);
+            console.log(posTop);
+            console.log(elliH);
+
+            d.style.height = displayH + "px";
+            d.style.overflow = "hidden";
+            /*elDisplay.style.top =  posTop + "px";*/
+            elDisplay.style.transform =  "translateY(" + posTop + "px)";
+            elDisplay.style.overflow = "";
+   
+
+
+        }   
+
+        window.onload = function() {
+            setSize();
+        }
+
+        function setOpen() {
+             
+            var displayH = deviceH - (aH+bH+cH);
+            var posTop = displayH - elliH;
+
+            console.log(displayH);
+            
+            elDisplay.style.overflow = "auto";
+            elDisplay.style.height = displayH + "px";
+            //elDisplay.style.top = "0";
+            elDisplay.style.transform =  "translateY(0)";
+            
+            elDisplay.style.transition = "transform .5s";
+            
+            
+
+        }
+
+      
+
+       
+
+       
+
+       //touch event 
+        var bStartEvent = false; //touchstart 이벤트 발생 여부 플래그  
+        var bMoveEvent = false; //touchmove 이벤트 발생 여부 플래그  
+
+        var isStartTop = 0, isClientY = 0, isLastY = 0;
+
+        elDisplay.addEventListener('touchstart', function(event) {
+            bStartEvent = true;
+            isStartTop = elDisplay.scrollTop
+            isClientY = event.touches[0].clientY;
+        });
+
+        elDisplay.addEventListener('touchmove', function(event){
+
+            if(!bStartEvent) {
+                return; //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+            }
+           
+            bMoveEvent = true; //touchmove 이벤트 발생 여부를 설정한다.
+            
+            //event.preventDefault();
+            isLastY = event.touches[0].clientY;
+
+            var displayH = deviceH - (aH+bH+cH);
+            var posTop = displayH - elliH;
+
+            console.log("isLastY:" + isLastY);
+
+            if (elDisplay.getAttribute('data-scroll') == 'false' && isClientY > isLastY ) {
+            
+               var touches = event.changedTouches;
+              
+               // console.log(touches[0].screenY)
+
+               var transY = Math.abs(posTop - isLastY);
+
+               console.log("transY:" + transY);
+
+               elDisplay.style.transform =  "translateY(" + transY + "px)";
+
+                setTimeout(function(){
+                    d.style.overflow = "auto";
+				}, 500);
+
+          
+            }
+
+            //close
+            if (isStartTop === 0 && isClientY < isLastY) {
+                
+                var transY = Math.abs( isLastY-posTop);
+                elDisplay.style.transform =  "translateY(" + transY + "px)";
+
+            }
+        });
+
+        elDisplay.addEventListener('touchend', function(evt) {
+            if (isStartTop === 0 && isClientY < isLastY) {
+                
+                setSize();
+            }
+
+            if (elDisplay.getAttribute('data-scroll') == 'false' && isClientY > isLastY ) {
+                setOpen();          
+            }
+
+            //각 플래그 값을 초기값으로 세팅한다.
+            bStartEvent = false;
+            bMoveEvent = false; 
+        });
+       
+    

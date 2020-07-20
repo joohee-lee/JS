@@ -1,4 +1,93 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{ margin: 0; padding: 0;}
+        body{ overflow: hidden; position: relative;}
+        .a{ height: 50px; background: green;}
+        .b{ height: 130px; background: yellow;}
+        .c{ height: 48px; background: red;}
+
+        .d{ position: relative; background: #ccc; width: 100%;}
+        .d-1{ position: absolute; left: 0; top: 0;}
+        .d-2{ position: absolute; left: 0; background: orange; width: 100%;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="wrap-inner">
+            <a href="javascript: setOpen();" style="position:absolute; right: 40px; top: 0;">open</a>
+            <a href="javascript: setSize();" style="position:absolute; right: 0; top: 0;">close</a>
+            
+            
+            <!-- -->
+            <div class="a">a</div>
+            <div class="b">a</div>
+            <div class="c">a</div>
+            <div class="d">
+                <div class="d-1">지도영역</div>
+                <div class="d-2" data-scroll="false">
+                       <div class="list">
+                        <ul>
+                            <li class="pin-item">
+                                가나다라마바사 <br>
+                                가나다라마바사 <br>
+                                가나다라마바사  <br>
+                                가나다라마바사 <br>
+                                가나다라마바사 
+                            </li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
         var deviceH = window.innerHeight;
         var aH = document.querySelector(".a").clientHeight;
         var bH = document.querySelector(".b").clientHeight;
@@ -133,4 +222,6 @@
             bMoveEvent = false; 
         });
        
-    
+    </script>
+</body>
+</html>

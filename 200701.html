@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{ margin: 0; padding: 0;}
+        body{ overflow: hidden; position: relative; height: 100%; height: 100vh;}
+        .a{ height: 50px; background: green;}
+        .b{ height: 130px; background: yellow;}
+        .c{ height: 48px; background: red;}
+
+        .d{ position: fixed; left:0; bottom: 0; background: #ccc; width: 100%;}
+        .d-1{ }
+        .d-2{ position: absolute; left: 0; background: orange; width: 100%;}
+
+        .list{padding: 20px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="wrap-inner">
+            <a href="javascript: setOpen();" style="position:absolute; right: 40px; top: 0;">open</a>
+            <a href="javascript: setClose();" style="position:absolute; right: 0; top: 0;">close</a>
+            
+            
+            <!-- -->
+            <div class="a">a</div>
+            <div class="b">a</div>
+            <div class="c">a</div>
+            <div class="d">
+                <div class="d-1">지도영역</div>
+                <div class="d-2" data-scroll="false">
+                       <div class="list">
+                        <ul>
+                            <li class="pin-item">
+                                가나다라마바사 <br>
+                                가나다라마바사 <br>
+                                가나다라마바사  <br>
+                                가나다라마바사 <br>
+                                가나다라마바사 
+                            </li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">2</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            <li  class="item">x</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var deviceH = window.innerHeight;
+        var aH = document.querySelector(".a").clientHeight;
+        var bH = document.querySelector(".b").clientHeight;
+        var cH = document.querySelector(".c").clientHeight;
+        var showH = 190;
+        var displayH = deviceH - (aH+bH+cH);
+           
+
+        var d = document.querySelector(".d");
+        var elDisplay = document.querySelector(".d-2");
+        var elDisplayH = elDisplay.clientHeight;
+        var elliH = document.querySelector(".pin-item").clientHeight;
+        var posY1 = elDisplayH - showH;
+        var posY2 = displayH - showH;
+        var posY3 = posY1 - posY2;
+
+        console.log("xx:" + elDisplayH);
+        console.log("xyy:" + displayH);
+                
+        
+
+
+        function setSize(){
+
+            console.log("ddd");
+       
+            console.log(displayH);
+            console.log(elliH);
+
+            d.style.height = displayH + "px";
+            d.style.overflow = "hidden";
+            /*elDisplay.style.top =  posTop + "px";*/
+            //elDisplay.style.transform =  "translateY(" + posTop + "px)";
+            //elDisplay.style.overflow = "";
+
+            elDisplay.style.bottom = "-" + posY1 + "px";
+        }   
+
+        window.onload = function() {
+            setSize();
+        }
+
+        function setOpen() {
+             
+            elDisplay.style.bottom = 0;
+            elDisplay.style.transition = "bottom .5s";
+            elDisplay.style.height = displayH + "px";
+            elDisplay.style.overflow = "auto";
+            /*
+            elDisplay.style.overflow = "auto";
+            elDisplay.style.height = displayH + "px";
+            elDisplay.style.transform =  "translateY(0)";
+            elDisplay.style.transition = "transform .5s";
+            */
+            
+
+        }
+
+        function setClose() {
+             
+            elDisplay.style.bottom = "-" + posY1 + "px";
+            elDisplay.style.transition = "bottom .5s";
+            elDisplay.style.height = "";
+            elDisplay.style.overflow = "hidden";
+             /*
+             elDisplay.style.overflow = "auto";
+             elDisplay.style.height = displayH + "px";
+             elDisplay.style.transform =  "translateY(0)";
+             elDisplay.style.transition = "transform .5s";
+             */
+        }
+
+        //touch event 
+        var isStartTop = 0, isClientY = 0, isLastY = 0;
+
+        elDisplay.addEventListener('touchstart', function(event) {
+            bStartEvent = true;
+            isStartTop = elDisplay.scrollTop
+            isClientY = event.touches[0].clientY;
+           
+        });
+
+        elDisplay.addEventListener('touchmove', function(event){
+
+            isLastY = event.touches[0].clientY;
+
+            if ( elDisplay.getAttribute('data-scroll') == 'false' && isClientY > isLastY ) {
+                setOpen();          
+            }
+
+            if (isStartTop === 0 && isClientY < isLastY) {
+                
+                console.log("dddssssssss");
+                setClose();
+            }
+
+        });
+
+        elDisplay.addEventListener('touchend', function(event) {
+            
+          
+        });
+       
+    </script>
+</body>
+</html>

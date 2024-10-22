@@ -10,7 +10,7 @@
 - 인덱스로 표현되는 값의 순서와, length 프로퍼티를 갖는 배열은 반복문(for)문을 통해 순차적으로 값에 접근하기 적합한 자료구조.
 
 
-## 1. Array  생성 
+## 1. Array  declaration(생성)
 - 1.1 배열리터럴 
 ```
 const arr = []
@@ -42,18 +42,47 @@ const arr = Array.from({length: 3}, (_, i) => i); --> {'0, 1, 2'}
 
 ```
 
-## 2. Array  요소 참조
+## 2. Array  요소 참조 .. index position.
 
 ```
-  요소참조할때, [인덱스]
+  2.0 index position - 요소참조할때, [인덱스]
 
   const arr = [1, 2];
 
+  console.log(arr.length);
+  console,log(arr[arr.length-1]); 마지막 배열 접근  
   console.log(arr[0]);
 
+  const fruits = ['사과', '귤', '바나나']
+
+ 2.1 Looping over an array - for
+
+  for(let i = 0; i<fruits.length; i++) {
+    console.log(fruits[i]);
+  }
+
+  //사과, 귤, 바나나
+
+2.2 for of
+  for (let fruit of fruits) {
+    console.log(fruit)
+  } 
+ //사과, 귤, 바나나
+
+2.3 forEach
+
+fruits.forEach(
+    function (fruit, index) {
+        console.log(fruit, index)
+    }
+)
+
+//es6 한줄 일 경우 {} 필요없음. 
+fruits.forEach((fruit, index) => console.log(fruit, index));
+  
 ```
 
-## 3. Array  요소 추가와 갱신
+## 3. Array  요소 추가와 갱신 / addition, deletion, copy
 ```
 const arr = [0];
 arr[1] = 1;
@@ -76,20 +105,48 @@ console.log(arr);
 ```
 //배열 함수
 ## 5. Array 매서드()  - builtin 메서드
+```
+addition, deletion, copy
+note! shift, unshift are slower than pop, push
+
+```
+
 - Array.isArray()
-- Array.prototype.indexOf
+
 - Array.prototype.push
+
 - Array.prototype.pop
-- Array.prototype.unshift
-- Array.prototype.shift
+
+- Array.prototype.unshift //느림 
+
+- Array.prototype.shift //느림
+
 - Array.prototype.concat
+  combine two arrays. 
+
+  const fruits1 = ['a', 'b', 'c'];
+  const fruits2 = ['d', 'e', 'f'];
+
+  fruits1.concat(fruits2);
+  (6) ['a', 'b', 'c', 'd', 'e', 'f']
+
 - Array.prototype.splice
+  remove an item by index position
+  fruits.splice(1, 1); 삭제될 요소 start position, delete 갯수 
+
 - Array.prototype.slice
 - Array.prototype.join
 - Array.prototype.reverse
 - Array.prototype.fill
-- Array.prototype.include
 - Array.prototype.flat
+
+```
+note!  searching find the index
+
+```
+
+- Array.prototype.indexOf
+- Array.prototype.include
 
 ## 6. Array 고차 함수()
 - Array.prototype.sort
@@ -104,7 +161,7 @@ console.log(arr);
 - Array.prototype.flatMap 
 
 
-# for loop , foreach, map 
+# Looping over an array -  for loop , foreach, map 
 ```
 //배열함수 
 
